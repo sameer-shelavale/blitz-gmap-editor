@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Blitz Gmap Editor - Test</title>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing,geometry" type="text/javascript"></script>
+<script type="text/javascript" src="http://geoxml3.googlecode.com/svn/branches/polys/geoxml3.js"></script>
+<script type="text/javascript" src="http://geoxml3.googlecode.com/svn/trunk/ProjectedOverlay.js"></script>
+<script src="jscolor/jscolor.js" type="text/javascript"></script>
+<script src="json2.js" type="text/javascript"></script>
+<script src="xmlwriter.js" type="text/javascript"></script>
+  <script src="blitz.gmap3.js" type="text/javascript"></script>
+
+</head>
+<body>
+<table><tr><td>
+<h1>Blitz Gmap Editor - test5 - save to KML &amp; generate map from KML</h1>
+</td><td>
+</td></tr></table>
+<div id="myMap" style="height:400px; width:100%;"></div>
+<input type="button" value="generate polygon from encoded" onclick="BlitzMap.setMapFromEncoded(document.getElementById('encodedData').value);" /> <input type="button" value="clear map" onclick="BlitzMap.deleteAll();" /><input type="button" value="toggle edit mode" onclick="BlitzMap.toggleEditable();" />
+<textarea id="encodedData" style="width:100%; /* height: 100px; */">aq|rFttwdQiizCfl}AqcbFfxv@_jfBff}@silAdfdDl`UzrlCmpp@z~eBgq@rrz`@~_dK?rfBstgK~daE~eBbwDulch@</textarea>
+<input type="button" value="Generate Map Text" onclick="BlitzMap.toJSONString()" />
+
+<textarea id="mapData" style="width:100%; height:300px">
+{"zoom":7,"tilt":0,"mapTypeId":"hybrid","center":{"lat":20.487486793750797,"lng":74.22363281640626},"overlays":[{"type":"polygon","title":"","content":"","fillColor":"#000000","fillOpacity":0.3,"strokeColor":"#000000","strokeOpacity":0.9,"strokeWeight":3,"paths":[[{"lat":"21.329035778926478","lng":"73.46008301171878"},{"lat":"21.40065516914794","lng":"78.30505371484378"},{"lat":"20.106233605369603","lng":"77.37121582421878"},{"lat":"20.14749530904506","lng":"72.65808105859378"}]]}]}</textarea>
+<script type="text/javascript">
+        BlitzMap.setMap( 'myMap', true, 'mapData' );
+</script>
+<input type="button" value="Generate KML" onclick="BlitzMap.toKML()" /><input type="button" value="parse KML to map" onclick="BlitzMap.setMapFromKML(document.getElementById('kmlString').value)" />
+<textarea id="kmlString" style="width:100%; height:500px"></textarea>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-162157-1";
+urchinTracker();
+</script>
+</body>
+</html>

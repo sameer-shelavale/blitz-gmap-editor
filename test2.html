@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Blitz Gmap Editor - Test 1 - Edit map and save as string</title>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing" type="text/javascript"></script>
+    <script src="jscolor/jscolor.js" type="text/javascript"></script>
+    <script src="json2.js" type="text/javascript"></script>
+    <script src="xmlwriter.js" type="text/javascript"></script>
+
+    <script src="blitz.gmap3.js" type="text/javascript"></script>
+
+</head>
+<body>
+<h1>Blitz Gmap Editor - Test 2 - Edit map and save as string</h1>
+<input type="button" value="Generate Map Text" onclick="BlitzMap.toJSONString()" />
+<div id="myMap" style="height:400px; width:100%;"></div>
+<textarea id="mapData" style="width:100%; height:300px">{"zoom":8,"tilt":0,"mapTypeId":"hybrid","center":{"lat":19.661986934694465,"lng":73.22113037500002},"overlays":[{"type":"polygon","title":"","content":"","fillColor":"#000000","fillOpacity":0.3,"strokeColor":"#000000","strokeOpacity":0.9,"strokeWeight":3,"paths":[[{"lat":"20.556938183898218","lng":"71.90826416406253"},{"lat":"20.381963425251477","lng":"71.85333252343753"},{"lat":"20.376814093040196","lng":"72.21588135156253"}],[{"lat":"20.65977110069927","lng":"71.89178467187503"},{"lat":"20.394836003478602","lng":"72.34497070703128"},{"lat":"20.16038735714587","lng":"72.18017578515628"},{"lat":"20.294401423556447","lng":"71.72424316796878"}]]},{"type":"rectangle","title":"test rect","content":"rect desc","fillColor":"#F6FC38","fillOpacity":0.7,"strokeColor":"#358BCC","strokeOpacity":0.9,"strokeWeight":3,"bounds":{"sw":{"lat":18.814017707054525,"lng":72.13348389062503},"ne":{"lat":19.11532671959476,"lng":72.64434814843753}}},{"type":"circle","title":"test circ","content":"circ desc","fillColor":"#FC2B2B","fillOpacity":0.3,"strokeColor":"#622EC9","strokeOpacity":0.9,"strokeWeight":3,"center":{"lat":18.90238877443504,"lng":73.84735107812503},"radius":27712.43672177303},{"type":"marker","title":"logo","content":"my company","icon":"http://possible.in/images/logo.png","position":{"lat":19.032261432855766,"lng":73.02337646875003}},{"type":"polyline","title":"my polyline","content":"here is my polyline","strokeColor":"#000000","strokeOpacity":1,"strokeWeight":3,"path":[{"lat":"19.340949142514425","lng":"71.54571533593753"},{"lat":"19.615424264931107","lng":"71.71051025781253"},{"lat":"19.39277245308109","lng":"72.01812744531253"},{"lat":"19.729220254878967","lng":"72.25433350000003"},{"lat":"19.429038958234003","lng":"72.43011475000003"},{"lat":"19.817098064313452","lng":"72.64434814843753"},{"lat":"19.434219227004117","lng":"72.98492432031253"},{"lat":"19.82743344216027","lng":"73.23211670312503"},{"lat":"19.397953877532046","lng":"73.56719971093753"},{"lat":"19.775749837017962","lng":"73.81439209375003"},{"lat":"19.475655425209734","lng":"74.07257080468753"},{"lat":"19.84293524850871","lng":"74.29779053125003"},{"lat":"19.460118091429095","lng":"74.57794189843753"}]}]}</textarea>
+<script type="text/javascript">
+    BlitzMap.setMap( 'myMap', true, 'mapData' );
+</script>
+<input type="button" value="Generate KML" onclick="BlitzMap.toKML()" />
+<textarea id="kmlString" style="width:100%; height:500px"></textarea>
+</body>
+</html>
+
