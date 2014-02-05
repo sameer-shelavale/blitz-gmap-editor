@@ -931,7 +931,7 @@ var BlitzMap = new function(){
                     xw.writeEndElement();
                     xw.writeEndElement();
                     xw.writeEndElement();
-                }if (result.overlays[i].type == "circle"){
+                }else if (result.overlays[i].type == "circle"){
                     //its a polygon, approximate a circle by a circular 64 sided polygon.
                     xw.writeStartElement('outerBoundaryIs');
                     xw.writeStartElement('LinearRing');
