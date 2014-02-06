@@ -9,5 +9,5 @@ Blitz GMap Editor allows the user to create custom maps using GMAP version 3 API
 
 Previous project home: https://code.google.com/p/blitz-gmap-editor
 
-Thanks to Committers: 
-1. Lawrence Ross(https://code.google.com/u/geocodezip/) for contributing toKML() functionality and bug fixes.
+Thanks to our Contributors: 
+ 1. Lawrence Ross(https://code.google.com/u/geocodezip/) for contributing toKML() functionality and bug fixes.
