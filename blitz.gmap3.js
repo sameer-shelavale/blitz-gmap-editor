@@ -548,7 +548,7 @@ var BlitzMap = new function(){
     }
 
     function setMapData( jsonString ){
-        if( jsonString.length == 0 ){
+        if( typeof jsonString == 'undefined' || jsonString.length == 0 ){
             return false;
         }
         var inputData = JSON.parse( jsonString );
