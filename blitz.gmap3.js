@@ -876,6 +876,33 @@ var BlitzMap = new function(){
 
     }
 
+    /*****************************************
+     *
+     * Function replaceOverlays()
+     * This function replaces existing overlays if there's many map instances
+     * parameters:
+     *              divId   : String, Id of HTML DIV element in which the gMap will be created
+     *
+     *****************************************/
+    this.replaceOverlays = function(divId) {
+		divId = divId + "_map"; // override from setMap() - mapDiv.id = divId + "_map";
+		
+		var tmpOverlays = new Array();
+		
+		for( var i=0; i < mapOverlays.length; i++ ) {
+		
+			var m = mapOverlays[i].getMap();
+			var d = m.getDiv();
+			
+			if( divId == d.id ) {
+				tmpOverlays.push( mapOverlays[i] );
+			}
+			
+		}
+
+		mapOverlays = tmpOverlays;
+	}
+
     this.toJSONString = function(){
         var result = JSON.stringify( mapToObject() );
 
