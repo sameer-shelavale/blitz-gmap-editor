@@ -116,7 +116,7 @@ var BlitzMap = new function(){
                 mapContainerId = divId;
                 mapDiv = document.createElement('div');
                 mapDiv.id = divId + "_map";
-                setStyle( mapDiv, { height: "100%", width: "100%", position:"absolute", "zIndex":1, left:"0" } );
+                setStyle( mapDiv, { height: "100%", width: "100%", position:"absolute", "zIndex":1000, left:"0" } );
 
                 document.getElementById( mapContainerId ).appendChild( mapDiv );
 
