@@ -489,7 +489,8 @@ var BlitzMap = new function(){
     }
 
     this.closeInfoWindow = function(){
-    	if(document.getElementById("BlitzMapInfoWindow_title").value == ""){
+    	if(document.getElementById("BlitzMapInfoWindow_title").value == "")//Condition added because we need an ID (title) to apply a style
+    	{
     		alert('The title is mandatory for style!');
     	}else{
             this.updateOverlay();
@@ -947,7 +948,7 @@ var BlitzMap = new function(){
         	
             xw.writeStartElement('Placemark');
             xw.writeStartElement('name');
-            xw.writeCDATA( result.overlays[i].title +" "+ result.overlays[i].fillColor);
+            xw.writeCDATA( result.overlays[i].title );
             xw.writeEndElement();
             xw.writeStartElement('description');
             xw.writeCDATA( result.overlays[i].content );
@@ -1079,36 +1080,34 @@ var BlitzMap = new function(){
     }
     
     //Function that turn the opacity value from decimal (0->1) to hexadecimal (00->FF)
-    // Example : tohex(0) -> 00 / tohex(0.5) -> 80 / tohex(1) -> FF
-    function tohex(x){
-        
-    	x = Math.round(x * 100) / 100;
-    	  var alpha = Math.round(x * 255);
-    	  var hex = (alpha + 0x10000).toString(16).substr(-2).toUpperCase();
-    	  var perc = Math.round(x * 100);
-    	    return hex;
+	// Example : tohex(0) -> 00 / tohex(0.5) -> 80 / tohex(1) -> FF
+	function tohex(x) {
 
-    	}
-    
-    
- 
-    // replace the character in the position 'n' of 's' with 't'
-    function replaceAt(s, n, t) {
-        return s.substring(0, n) + t + s.substring(n + 1);
-    }
-    
-    //Function that change code color from RGB to BGR 
-    // Example : RGBtoBGR("blitz") -> "ztilb"
-    function RGBtoBGR(s) {
-		        	  
-    	var r1, r2, b1, b2;
-    	
+		x = Math.round(x * 100) / 100;
+		var alpha = Math.round(x * 255);
+		var hex = (alpha + 0x10000).toString(16).substr(-2).toUpperCase();
+		var perc = Math.round(x * 100);
+		return hex;
+
+	}
+
+	// replace the character in the position 'n' of 's' with 't'
+	function replaceAt(s, n, t) {
+		return s.substring(0, n) + t + s.substring(n + 1);
+	}
+
+	//Function that change code color from RGB to BGR 
+	// Example : RGBtoBGR("blitz") -> "ztilb"
+	function RGBtoBGR(s) {
+
+		var r1, r2, b1, b2;
+
 		// selecting
 		r1 = s.charAt(0);
 		r2 = s.charAt(1);
 		b1 = s.charAt(4);
 		b2 = s.charAt(5);
-		
+
 		// reversing
 		s = replaceAt(s, 0, b1);
 		s = replaceAt(s, 1, b2);
