@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Blitz Gmap Editor - Test</title>
+<script
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyADZ696PHJnMTM87EkUlNDpyD43XvQICf8&sensor=false&libraries=drawing,geometry"
+	type="text/javascript"></script>
+
+<script type="text/javascript"
+	src="http://geoxml3.googlecode.com/svn/branches/polys/geoxml3.js"></script>
+
+<script type="text/javascript"
+	src="http://geoxml3.googlecode.com/svn/trunk/ProjectedOverlay.js"></script>
+
+<script src="jscolor/jscolor.js" type="text/javascript"></script>
+<script src="json2.js" type="text/javascript"></script>
+<script src="xmlwriter.js" type="text/javascript"></script>
+<script src="blitz.gmap3.js" type="text/javascript"></script>
+<style>
+html, body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+}
+
+#myMap {
+	float: left;
+	height: 100%;
+	width: 50%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#info {
+	display: inline;
+}
+
+.fom {
+	margin: 10px;
+}
+
+#kmlString {
+	margin: 10px;
+	height: 70%;
+	width: 48%;
+}
+
+#tels {
+	margin: 10px;
+	height: 10%;
+	width: 48%;
+}
+</style>
+</head>
+<body>
+
+
+	<div id="myMap"></div>
+
+	<script type="text/javascript">
+		BlitzMap.setMap('myMap', true, null);
+	</script>
+	<input class="fom" type="button" value="Generate KML with Style"
+		onclick="BlitzMap.toKML()" />
+	<input class="fom" type="button" value="parse KML to map"
+		onclick="BlitzMap.setMapFromKML(document.getElementById('kmlString').value)" />
+	<textarea id="kmlString" style="width: 40%; height: 500px"></textarea>
+
+
+</body>
+</html>
