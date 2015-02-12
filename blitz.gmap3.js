@@ -32,9 +32,9 @@ var BlitzMap = new function(){
 
 
         var mapOptions = {
-            center: new google.maps.LatLng( 19.006295, 73.309021 ),
-            zoom: 4,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+        		center: new google.maps.LatLng( 19.006295, 73.309021 ),
+                zoom: 4,
+                mapTypeId: google.maps.MapTypeId.HYBRID
         };
 
         //create a common infoWindow object
@@ -458,7 +458,7 @@ var BlitzMap = new function(){
             content += '<div style="height:25px;padding-bottom:3px;">Icon(): <input type="text" id="BlitzMapInfoWindow_icon" value="'+ icon.toString() +'" style="border:2px solid #dddddd;width:100px;float:right" ></div>';
 
         }
-        content += '</div><div style="position:relative; bottom:0px;"><input type="button" value="Delete" class="BlitzMapInfoWindow_button" onclick="BlitzMap.deleteOverlay()" style="background-color:#2883CE;color:#ffffff;padding:3px 10px;border:2px double #cccccc;cursor:pointer;" title"Delete selected shape">&nbsp;&nbsp;'
+        content += '</div><div style="position:relative; bottom:0px;"><input type="button" value="Delete" class="BlitzMapInfoWindow_button" onclick="BlitzMap.deleteOverlay()" style="background-color:#2883CE;color:#ffffff;padding:3px 10px;border:2px double #cccccc;cursor:pointer;" title="Delete selected shape">&nbsp;&nbsp;'
             +  '<input type="button" value="OK" class="BlitzMapInfoWindow_button" onclick="BlitzMap.closeInfoWindow()" style="background-color:#2883CE;color:#ffffff;padding:3px 10px;border:2px double #cccccc;cursor:pointer;float:right;" title="Apply changes to the overlay">'
             +  '<input type="button" value="Cancel" class="BlitzMapInfoWindow_button" onclick="this.form.reset();BlitzMap.closeInfoWindow()" style="background-color:#2883CE;color:#ffffff;padding:3px 10px;border:2px double #cccccc;cursor:pointer;float:right;">'
             + '<div style="clear:both;"></div>'
@@ -489,8 +489,13 @@ var BlitzMap = new function(){
     }
 
     this.closeInfoWindow = function(){
-        this.updateOverlay();
-        infWindow.close();
+    	if(document.getElementById("BlitzMapInfoWindow_title").value == "")//Condition added because we need an ID (title) to apply a style
+    	{
+    		alert('The title is mandatory for style!');
+    	}else{
+            this.updateOverlay();
+            infWindow.close();    		
+    	}
     }
 
     this.updateOverlay = function(){
@@ -925,7 +930,22 @@ var BlitzMap = new function(){
         xw.writeAttributeString( "xmlns", "http://www.opengis.net/kml/2.2" );
         xw.writeStartElement('Document');
 
+        //loop for Style
         for( var i = 0; i < result.overlays.length; i++ ){
+        	xw.writeStartElement('Style');
+        	xw.writeAttributeString( "id", "style_"+result.overlays[i].title);
+        	xw.writeStartElement('PolyStyle');
+        	var opacity = tohex(result.overlays[i].fillOpacity) //turn the opacity decimal value to hexadecimal
+        	var color = result.overlays[i].fillColor.substr(1); //Delete the character '#' on the first
+        	color = RGBtoBGR(color);//change color format from rgb to bgr
+        	var fullColor = opacity+color; //merge the two values
+            xw.writeElementString('color', fullColor); //add color element
+            xw.writeEndElement(); //close PolyStyle
+            xw.writeEndElement(); // close Style
+        }
+        
+        for( var i = 0; i < result.overlays.length; i++ ){
+        	
             xw.writeStartElement('Placemark');
             xw.writeStartElement('name');
             xw.writeCDATA( result.overlays[i].title );
@@ -933,6 +953,8 @@ var BlitzMap = new function(){
             xw.writeStartElement('description');
             xw.writeCDATA( result.overlays[i].content );
             xw.writeEndElement();
+            xw.writeElementString('styleUrl', "#style_"+result.overlays[i].title); //add styleUrl element
+            
             if( result.overlays[i].type == "marker" ){
 
                 xw.writeStartElement('Point');
@@ -1056,6 +1078,45 @@ var BlitzMap = new function(){
             }
         }
     }
+    
+    //Function that turn the opacity value from decimal (0->1) to hexadecimal (00->FF)
+	// Example : tohex(0) -> 00 / tohex(0.5) -> 80 / tohex(1) -> FF
+	function tohex(x) {
+
+		x = Math.round(x * 100) / 100;
+		var alpha = Math.round(x * 255);
+		var hex = (alpha + 0x10000).toString(16).substr(-2).toUpperCase();
+		var perc = Math.round(x * 100);
+		return hex;
+
+	}
+
+	// replace the character in the position 'n' of 's' with 't'
+	function replaceAt(s, n, t) {
+		return s.substring(0, n) + t + s.substring(n + 1);
+	}
+
+	//Function that change code color from RGB to BGR 
+	// Example : RGBtoBGR("blitz") -> "ztilb"
+	function RGBtoBGR(s) {
+
+		var r1, r2, b1, b2;
+
+		// selecting
+		r1 = s.charAt(0);
+		r2 = s.charAt(1);
+		b1 = s.charAt(4);
+		b2 = s.charAt(5);
+
+		// reversing
+		s = replaceAt(s, 0, b1);
+		s = replaceAt(s, 1, b2);
+		s = replaceAt(s, 4, r1);
+		s = replaceAt(s, 5, r2);
+
+		return s;
+	}
+    
 }
 
 google.maps.event.addDomListener(window, "load", BlitzMap.init);
